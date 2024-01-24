@@ -12,97 +12,94 @@ public class ProductResponse {
     private String inventoryStatus;
     private Integer rating;
 
-
-    public ProductResponse(Long id, String code, String name, String description, String image, Double price, String category, Integer quantity, String inventoryStatus, Integer rating) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.description = description;
-        this.image = image;
-        this.price = price;
-        this.category = category;
-        this.quantity = quantity;
-        this.inventoryStatus = inventoryStatus;
-        this.rating = rating;
-    }
-
+    
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public ProductResponse setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public ProductResponse setCode(String code) {
         this.code = code;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public ProductResponse setName(String name) {
         this.name = name;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public ProductResponse setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public String getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public ProductResponse setImage(String image) {
         this.image = image;
+        return this;
     }
 
     public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public ProductResponse setPrice(Double price) {
         this.price = price;
+        return this;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public ProductResponse setCategory(String category) {
         this.category = category;
+        return this;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public ProductResponse setQuantity(Integer quantity) {
         this.quantity = quantity;
+        return this;
     }
 
     public String getInventoryStatus() {
         return inventoryStatus;
     }
 
-    public void setInventoryStatus(String inventoryStatus) {
+    public ProductResponse setInventoryStatus(String inventoryStatus) {
         this.inventoryStatus = inventoryStatus;
+        return this;
     }
 
     public Integer getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public ProductResponse setRating(Integer rating) {
         this.rating = rating;
+        return this;
     }
 }

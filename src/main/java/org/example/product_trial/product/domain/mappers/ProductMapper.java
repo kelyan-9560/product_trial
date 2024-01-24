@@ -7,18 +7,18 @@ import org.example.product_trial.product.infrastructure.web.responses.ProductRes
 public class ProductMapper {
 
     public static ProductResponse toResponse(Product product){
-        return new ProductResponse(
-                product.getId(),
-                product.getCode(),
-                product.getName(),
-                product.getDescription(),
-                product.getImage(),
-                product.getPrice(),
-                product.getCategory(),
-                product.getQuantity(),
-                product.getInventoryStatus(),
-                product.getRating()
-        );
+        return new ProductResponse()
+                .setId(product.getId())
+                .setCode(product.getCode())
+                .setName(product.getName())
+                .setDescription(product.getDescription())
+                .setImage(product.getImage())
+                .setPrice(product.getPrice())
+                .setCategory(product.getCategory())
+                .setQuantity(product.getQuantity())
+                .setInventoryStatus(product.getInventoryStatus())
+                .setRating(product.getRating());
+
     }
 
     public static Product toEntity(ProductRequest productRequest){
