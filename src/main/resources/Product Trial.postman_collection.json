@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "8bd618ac-d0eb-40c8-b370-4ffb9dfa66f1",
+		"name": "Product Trial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20701726"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an object with id, name, description, and price properties\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object').that.has.all.keys(\r",
+							"        'id', 'code', 'name', 'description', 'image', 'price', 'category', 'quantity', 'inventoryStatus', 'rating'\r",
+							"    );\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"test\",\r\n    \"name\": \"test\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"yellow-earbuds.jpg\",\r\n    \"price\": 8900,\r\n    \"category\": \"Electronics\",\r\n    \"quantity\": 35,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/{{apiVersion}}/products",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{apiVersion}}",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Id must be equal to 1022\", function(){\r",
+							"    const responseData = pm.response.json();\r",
+							"    pm.expect(responseData.id).to.be.equal(1022)\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{apiVersion}}/products/1022",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{apiVersion}}",
+						"products",
+						"1022"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response has the required fields\", function () {\r",
+							"    const responseData = pm.response.json();\r",
+							"    \r",
+							"    pm.expect(responseData).to.be.an('array');\r",
+							"    responseData.forEach(function(product) {\r",
+							"        pm.expect(product).to.have.property('id');\r",
+							"        pm.expect(product).to.have.property('name');\r",
+							"        pm.expect(product).to.have.property('description');\r",
+							"        pm.expect(product).to.have.property('price');\r",
+							"    });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Price is a non-negative number\", function () {\r",
+							"  const responseData = pm.response.json();\r",
+							"  \r",
+							"  pm.expect(responseData).to.be.an('array');\r",
+							"  \r",
+							"  responseData.forEach(function(product) {\r",
+							"    pm.expect(product.price).to.be.a('number').and.to.be.at.least(0);\r",
+							"  });\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Content-Type header is application/json\", function () {\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{apiVersion}}/products",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{apiVersion}}",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an object with specific properties\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"    pm.expect(jsonData).to.have.property('id');\r",
+							"    pm.expect(jsonData).to.have.property('code');\r",
+							"    pm.expect(jsonData).to.have.property('name');\r",
+							"    pm.expect(jsonData).to.have.property('description');\r",
+							"    pm.expect(jsonData).to.have.property('image');\r",
+							"    pm.expect(jsonData).to.have.property('price');\r",
+							"    pm.expect(jsonData).to.have.property('category');\r",
+							"    pm.expect(jsonData).to.have.property('quantity');\r",
+							"    pm.expect(jsonData).to.have.property('inventoryStatus');\r",
+							"    pm.expect(jsonData).to.have.property('rating');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"testUpdate\",\r\n    \"name\": \"test\",\r\n    \"description\": \"Product Description\",\r\n    \"image\": \"yellow-earbuds.jpg\",\r\n    \"price\": 8900,\r\n    \"category\": \"Electronics\",\r\n    \"quantity\": 35,\r\n    \"inventoryStatus\": \"INSTOCK\",\r\n    \"rating\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/{{apiVersion}}/products/1022",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{apiVersion}}",
+						"products",
+						"1022"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is 'Product deleted'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include('Product deleted');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/{{apiVersion}}/products/1",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"{{apiVersion}}",
+						"products",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "domain",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "apiVersion",
+			"value": "api/v1"
+		}
+	]
+}
