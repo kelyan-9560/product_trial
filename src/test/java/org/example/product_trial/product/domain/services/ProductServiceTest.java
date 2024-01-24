@@ -56,6 +56,7 @@ class ProductServiceTest {
     }
 
     @Test
+    @DisplayName("Should return a product by id")
     void getById() {
         product.setId(1L);
 
