@@ -13,13 +13,16 @@ import java.util.List;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductValidator productValidator;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductValidator productValidator) {
         this.productRepository = productRepository;
+        this.productValidator = productValidator;
     }
 
     public Product create(ProductRequest productRequest){
         var product = ProductMapper.toEntity(productRequest);
+        productValidator.validateProduct(product);
         return productRepository.save(product);
     }
 

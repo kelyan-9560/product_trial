@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -23,6 +24,9 @@ class ProductServiceTest {
 
     @Mock
     ProductRepository productRepository;
+
+    @Mock
+    ProductValidator productValidator;
 
     @InjectMocks
     ProductService productService;
@@ -34,7 +38,12 @@ class ProductServiceTest {
         product = new Product()
                 .setCode("azerty")
                 .setName("productTest")
-                .setPrice(24.0);
+                .setDescription("description")
+                .setPrice(24.0)
+                .setCategory("category")
+                .setQuantity(1)
+                .setInventoryStatus("inventoryStatus")
+                .setRating(1);
     }
 
     @Test
@@ -43,7 +52,15 @@ class ProductServiceTest {
         var productRequest = new ProductRequest()
                 .setCode("azerty")
                 .setName("productTest")
-                .setPrice(24.0);
+                .setDescription("description")
+                .setPrice(24.0)
+                .setCategory("category")
+                .setQuantity(1)
+                .setInventoryStatus("inventoryStatus")
+                .setRating(1);
+
+
+        doNothing().when(productValidator).validateProduct(product);
 
 
         when(productRepository.save(product)).thenReturn(product);
@@ -100,14 +117,24 @@ class ProductServiceTest {
         var update = new Product()
                 .setCode("code updated")
                 .setName("name updated")
-                .setPrice(256.0);
+                .setDescription("description")
+                .setPrice(256.0)
+                .setCategory("category")
+                .setQuantity(1)
+                .setInventoryStatus("inventoryStatus")
+                .setRating(1);
         when(productRepository.save(update)).thenReturn(update);
 
 
         var productRequest = new ProductRequest()
                 .setCode("code updated")
                 .setName("name updated")
-                .setPrice(256.0);
+                .setDescription("description")
+                .setPrice(256.0)
+                .setCategory("category")
+                .setQuantity(1)
+                .setInventoryStatus("inventoryStatus")
+                .setRating(1);
         var productUpdated = productService.update(1L, productRequest);
 
 

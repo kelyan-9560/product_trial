@@ -20,8 +20,12 @@ public class ProductController {
 
     @PostMapping()
     public ResponseEntity<?> create(@RequestBody ProductRequest productRequest){
-        var product = productService.create(productRequest);
-        return new ResponseEntity<>(ProductMapper.toResponse(product), HttpStatus.CREATED);
+        try {
+            var product = productService.create(productRequest);
+            return new ResponseEntity<>(ProductMapper.toResponse(product), HttpStatus.CREATED);
+        } catch (ProductException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("{productId}")
